@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -18,14 +21,25 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(unique = true,nullable = false)
     private String email;
+
 
     private String gender;
 
     private LocalDate birthDate;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroupType;
+
+    @OneToOne
+    @JoinColumn(name = "insurance_id")
+    private Insurance insurance;
 }

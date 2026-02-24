@@ -22,6 +22,6 @@ public class InsuranceService {
       patient.setInsurance(insurance);
       insurance.setPatient(patient); //bidirectional consistency
         return patient;
-
             }
+
 }

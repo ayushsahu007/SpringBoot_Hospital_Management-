@@ -42,11 +42,12 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroupType;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient")
+    @ToString.Exclude
     private List<Appointment> appointments;
 
 }

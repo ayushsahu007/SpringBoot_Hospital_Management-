@@ -1,12 +1,19 @@
 package com.jspider.hospital.HospitalManagementSystem.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class Insurance {
 
     @Id

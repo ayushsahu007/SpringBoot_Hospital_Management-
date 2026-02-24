@@ -4,16 +4,19 @@ import com.jspider.hospital.HospitalManagementSystem.model.type.BloodGroupType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @ToString
 public class Patient {
 
@@ -40,6 +43,10 @@ public class Patient {
     private BloodGroupType bloodGroupType;
 
     @OneToOne
-    @JoinColumn(name = "insurance_id")
+    @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
+
 }

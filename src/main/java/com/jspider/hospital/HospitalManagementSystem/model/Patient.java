@@ -2,10 +2,7 @@ package com.jspider.hospital.HospitalManagementSystem.model;
 
 import com.jspider.hospital.HospitalManagementSystem.model.type.BloodGroupType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Getter
 @ToString
 public class Patient {
 
@@ -42,7 +40,7 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private BloodGroupType bloodGroupType;
 
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.ALL},orphanRemoval = true)
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 

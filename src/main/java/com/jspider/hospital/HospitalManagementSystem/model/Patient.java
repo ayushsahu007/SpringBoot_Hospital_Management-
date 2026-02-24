@@ -1,13 +1,17 @@
 package com.jspider.hospital.HospitalManagementSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.jspider.hospital.HospitalManagementSystem.model.type.BloodGroupType;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Patient {
 
     @Id
@@ -21,4 +25,7 @@ public class Patient {
     private String gender;
 
     private LocalDate birthDate;
+
+    @Enumerated(EnumType.STRING)
+    private BloodGroupType bloodGroupType;
 }

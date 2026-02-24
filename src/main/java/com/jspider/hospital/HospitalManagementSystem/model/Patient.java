@@ -44,7 +44,7 @@ public class Patient {
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = {CascadeType.REMOVE},orphanRemoval = true)
     @ToString.Exclude
     private List<Appointment> appointments;
 

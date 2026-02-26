@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 @ToString
@@ -31,6 +29,7 @@ public class Patient {
 
     private String gender;
 
+
     private LocalDate birthDate;
 
     @CreationTimestamp
@@ -44,6 +43,8 @@ public class Patient {
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
 
+    @OneToMany(mappedBy = "patient",cascade =
+            {CascadeType.REMOVE},orphanRemoval = true,fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "patient",cascade = {CascadeType.REMOVE},orphanRemoval = true)
     @ToString.Exclude
     private List<Appointment> appointments;

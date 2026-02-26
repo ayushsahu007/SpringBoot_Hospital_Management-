@@ -21,3 +21,4 @@ VALUES
     ('2025-07-04 14:00:00', 'Follow-up Visit', 1, 1),
     ('2025-07-05 16:15:00', 'Consultation', 1, 4),
     ('2025-07-06 08:30:00', 'Allergy Treatment', 2, 5);
+

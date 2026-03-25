@@ -43,9 +43,17 @@ public class AuthService {
 
         if (user != null) throw new IllegalArgumentException("User already exists");
 
+//        return userRepository.save(User.builder()
+//                        .username(signUpRequestDto.getUsername())
+//                        .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
+//                .build());
         return userRepository.save(User.builder()
-                        .username(signUpRequestDto.getUsername())
-                        .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
+                .username(signUpRequestDto.getUsername())
+                .password(signUpRequestDto.getPassword() != null
+                        ? passwordEncoder.encode(signUpRequestDto.getPassword())
+                        : null)
+                .providerType(authProviderType)   // ✅ add this
+                .providerId(providerId)           // ✅ add this
                 .build());
     }
 
@@ -77,14 +85,14 @@ public class AuthService {
             String username = authUtil.determineUsernameFromOAuth2User(oAuth2User, registrationId, providerId);
             user = signUpInternal(new LoginRequestDto(username,null), providerType, providerId);
       }
-//        else if(user != null) {
-//            if(email != null && !email.isBlank() && !email.equals(user.getUsername())) {
-//                user.setUsername(email);
-//                userRepository.save(user);
-//            }
-//        } else {
-//            throw new BadCredentialsException("This email is already registered with provider "+emailUser.getProviderType());
-//        }
+        else if(user != null) {
+            if(email != null && !email.isBlank() && !email.equals(user.getUsername())) {
+                user.setUsername(email);
+                userRepository.save(user);
+            }
+        } else {
+            throw new BadCredentialsException("This email is already registered with provider "+emailUser.getProviderType());
+        }
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(authUtil.generateAccessToken(user), user.getId());
         return ResponseEntity.ok(loginResponseDto);

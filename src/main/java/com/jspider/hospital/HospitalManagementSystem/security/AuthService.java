@@ -55,6 +55,7 @@ public class AuthService {
                 .providerType(authProviderType)   // ✅ add this
                 .providerId(providerId)           // ✅ add this
                 .build());
+
     }
 
     // login controller
